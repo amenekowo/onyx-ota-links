@@ -32,10 +32,10 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env: 
-        GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }} # No need to add tokens because uses venv created
+        GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: release
+        release_name: Release
         draft: false
         prerelease: false
     - name: upload release
