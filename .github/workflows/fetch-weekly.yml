@@ -1,0 +1,48 @@
+name: fetch-weekly
+
+on:
+  schedule:
+  - cron: "0 0 * * 0"
+
+jobs:
+  fetch:
+    name: fetch
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y python3 python3-pip zip
+        pip install -r requirements.txt
+    - name: fetch data from onyx server
+      run: |
+        python3 fetch.py
+    - name: get current date
+      id: get-date
+      run: |
+        echo ::set-output name=date::$(/bin/date -u "+%Y%m%d")
+    - name: add all files to zip
+      run: |
+        zip -9 updates-${{ steps.get-date.outputs.date }}.zip *.md
+    - name: create release
+      id: create_release
+      uses: actions/create-release@v1
+      env: 
+        GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }} # No need to add tokens because uses venv created
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: upload release
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./updates-${{ steps.get-date.outputs.date }}.zip
+        asset_name: updates-${{ steps.get-date.outputs.date }}.zip
+        asset_content_type: application/zip
