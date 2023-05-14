@@ -1,4 +1,6 @@
-# Onyx BOOX Note 2
+# Onyx Update Urls
 
-- 2023-03-21_14_47_3.3.2_5d69ac1026
-  - http://firmware-volc.boox.com/e2f5e4776211ba1ff43ab1f3f08bbcfa/update.upx
+Fetch update changelogs and urls from Onyx servers weekly.  
+Thanks to [Hagb/decryptBooxUpdateUpx](https://github.com/Hagb/decryptBooxUpdateUpx) for a way to get downloading url of latest firmware.  
+
+Status: [![fetch-weekly](https://github.com/amenekowo/onyx-ota-links/actions/workflows/fetch-weekly.yml/badge.svg)](https://github.com/amenekowo/onyx-ota-links/actions/workflows/fetch-weekly.yml)  
