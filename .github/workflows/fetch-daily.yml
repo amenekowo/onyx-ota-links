@@ -1,8 +1,8 @@
-name: fetch-weekly
+name: fetch-daily
 
 on:
   schedule:
-  - cron: "0 0 * * 0"
+  - cron: "0 0 * * *"
   watch:
     types: [started]
 
@@ -35,7 +35,7 @@ jobs:
         GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: release
-        release_name: Release
+        release_name: Release ${{ steps.get-date.outputs.date }}
         draft: false
         prerelease: false
     - name: upload release
