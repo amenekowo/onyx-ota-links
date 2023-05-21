@@ -2,7 +2,7 @@ import json
 import os
 import requests
 
-devices=["NovaPro","NovaPlus","Nova","Nova2","Nova3","Max3","MaxLumi","Note2","NotePro","Note3","Poke3","Poke4","Poke4S","Poke2Color","Poke4Lite","NoteAir","NoteAir2","NoteAir2P","Nova3Color"]
+devices=["NovaPro","NovaPlus","Nova","Nova2","Nova3","Max3","MaxLumi","Note2","NoteX2","NotePro","Note3","Poke3","Poke4","Poke4S","Poke2Color","Poke4Lite","NoteAir","NoteAir2","NoteAir2P","Nova3Color"]
 langs=["en_US","zh_CN"]
 
 def fetch(device, lang):
